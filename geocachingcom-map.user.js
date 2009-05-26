@@ -56,3 +56,40 @@ unsafeWindow.hideOwnedModified = function(e, b) {
         unsafeWindow.updateSideBarList()
     }
 }
+
+  
+var filterLegend = document.getElementById('filterLegend');
+var allCheckboxes = filterLegend.getElementsByTagName('input');
+
+for (var i = 0; i < allCheckboxes.length; i++) {
+    thisBox = allCheckboxes[i];
+
+	//Make it clickable
+    thisBox.removeAttribute('disabled');
+
+	//Add the onclick-handler
+	thisBox.setAttribute('onclick', 'hideByType(this, true)');
+}
+
+
+unsafeWindow.hideByType = function(e, b) {
+    var a, d = unsafeWindow.mrks.length;
+    if (e.checked === false) {
+        for (a = 0; a < d; a++) {
+            if (unsafeWindow.mrks[a].wptTypeId == e.value) {
+                unsafeWindow.mrks[a].hide()
+            }
+        }
+    } else {
+        for (a = 0; a < d; a++) {
+            if (unsafeWindow.mrks[a].wptTypeId == e.value) {
+                if (unsafeWindow.lgnds.byTypeID(unsafeWindow.mrks[a].wptTypeId).visible === true) {
+                    unsafeWindow.mrks[a].show()
+                }
+            }
+        }
+    }
+    if (b) {
+        unsafeWindow.updateSideBarList()
+    }
+}
